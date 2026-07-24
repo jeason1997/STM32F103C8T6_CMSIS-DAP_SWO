@@ -1,6 +1,39 @@
+
+# README（精简工程实用风格，可直接使用）
+本工程可将 Bluepill（STM32F103C8T6）固件编译为 CMSIS-DAP（DapLink）调试器，还支持CDC串口。
+
+原版仓库直接编译会出现依赖缺失报错，本仓库重新整理并补齐全部相关依赖。
+
+## 编译开启宏定义
+```
+USE_STDPERIPH_DRIVER,STM32F10X_MD,BLUEPILL,SWD_REMAP,SWO_PB7,USBD_CDC_ACM_ENABLE=1
+```
+
+## 烧录
+可以直接用这个固件：`F103-DAP-SWO-CDC-BLUEPILL-SWD_REMAP.hex`
+
+## 引脚接线
+DAP调试器(Bluepill) ↔ 目标设备
+```
+SWCLK(PA14)      SWCLK(PA14)
+SWDIO(PA13)      SWDIO(PA13)
+SWO(PB7)         SWO(PB3)
+
+CDC串口虚拟通道：
+TX(PA9)          RX(PA10)
+RX(PA10)         TX(PA9)
+```
+
+## 说明
+SWO ITM日志通道本人暂未调试成功；
+该方式属于不占用硬件串口的内核日志输出方案，可供后续研究参考：
+https://zhuanlan.zhihu.com/p/676727734
+
+---
+
+# 原文
 # STM32F103C8T6_CMSIS-DAP_SWO
 -----------------------------
-
 Based x893's code on: https://github.com/x893/CMSIS-DAP
 
 My contribution:
